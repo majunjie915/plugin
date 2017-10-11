@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+	<script type="text/javascript">
+		/**
+		 * @param {number[]} nums
+		 * @return {number}
+		 */
+		var singleNumber = function(nums) {
+		    var objArr = {};
+		    var number;
+		    for (var i = 0; i < nums.length; i++) {
+		    	if(objArr[nums[i]]){
+		    		delete objArr[nums[i]];
+		    	}else{
+		    		objArr[nums[i]] = true;
+		    	}
+		    }
+		    for(var j in objArr){
+		    	number = j;
+		    }
+		    return Number(number);
+		};
+		var nums = [1,1,2,0,3,2,3];
+		console.log(singleNumber(nums));
+	</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+
+	<script type="text/javascript">
+		/**
+		 * Definition for singly-linked list.
+		 */
+		function ListNode(val) {
+		    this.val = val;
+		    this.next = null;
+		}
+		/**
+		 * @param {ListNode} l1
+		 * @param {ListNode} l2
+		 * @return {ListNode}
+		 */
+		var mergeTwoLists = function(l1, l2) {
+		    var retNode = new ListNode(-1);
+		    var pNode = retNode;
+		    var p1 = l1;
+		    var p2 = l2;
+		    while(p1 != null || p2 != null){
+		    	var A = p1===null ? Number.MAX_VALUE : p1.val;
+		    	var B = p2===null ? Number.MAX_VALUE : p2.val;
+		    	if (A < B) {
+		    		pNode.next = new ListNode(A);
+		    		p1 = p1.next
+		    	}else{
+		    		pNode.next = new ListNode(B);
+		    		p2 = p2.next;
+		    	}
+		    	pNode = pNode.next;
+		    }
+		    return retNode.next;
+		};
+		var l1 = new ListNode(1);
+		l1.next = new ListNode(3);
+		l1.next.next = new ListNode(5);
+
+		var l2 = new ListNode(2);
+		l2.next = new ListNode(4);
+
+		console.log(printNode(l1));
+		console.log(printNode(l2));
+		var result = mergeTwoLists(l1, l2);
+
+
+		console.log(printNode(result));
+		// console.log(printNode(mergeTwoLists(l1, l2)));
+
+		function printNode(p){
+			var str = "";
+			while (p != null){
+				str += p.val+"->";
+				p = p.next;
+			}
+			return str;
+		}
+	</script>
+</body>
+</html>

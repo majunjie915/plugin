@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Is happy number?</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		/**
+		 * @param {number} n
+		 * @return {boolean}
+		 */
+		var isHappy = function(n) {
+			if (n === 1) {
+				return true;
+			}
+			if (n < 1) {
+				return false;
+			}
+			
+			var obj = {};
+			while(n != 1){
+				n = digitSquareSum(n);
+				if (n === 1) {
+					return true;
+				} else if(obj.hasOwnProperty(n)){
+					return false;
+				}else {
+					obj[n] = true;
+				}
+			}
+		};
+		var digitSquareSum = function(n) {
+			var sum = 0;
+			while(n != 0){				
+				var digit = n % 10;
+				sum += digit * digit;
+				n = parseInt(n / 10);
+			}
+			return sum;
+		}
+		console.log(isHappy(191));
+	</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>移动端-无缝滚动</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="../common/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="../common/rem.js"></script>
+	<script type="text/javascript" src="seamlessScroll.js"></script>
+	<style type="text/css">
+		* { margin: 0; padding: 0; }
+		.myscroll{ height: 0.54rem; font-size: 0.28rem;overflow-y: hidden;margin: 0.4rem; }
+		.myscroll li{ height: 0.54rem; line-height: 0.54rem; }
+	</style>
+</head>
+<body>
+	<div class="myscroll">
+	    <ul>
+	        <li><a href="#">小**五抽中周杰伦杭州站内场票一张</a></li>
+	        <li><a href="#">S**y抽中100元无门槛优惠券</a></li>
+	        <li><a href="#">权志龙***89抽中50元代金券</a></li>
+	        <li><a href="#">zj***x抽中20元优惠券</a></li>
+	        <li><a href="#">杰伦**变抽中2元无门槛优惠券</a></li>
+			<li><a href="#">夏**至抽中50元优惠券</a></li>
+			<li><a href="#">你这**t抽中10元优惠券</a></li>
+			<li><a href="#">兴***巴抽中2元无门槛优惠券</a></li>
+			<li><a href="#">鑫*抽中10元优惠券</a></li>
+			<li><a href="#">唯*抽中周杰伦杭州场门票2张</a></li>
+			<li><a href="#">A****1抽中50元优惠券</a></li>
+			<li><a href="#">我是**杰抽中20元优惠券</a></li>
+			<li><a href="#">七***小抽中5元优惠券</a></li>
+	    </ul>
+	</div>
+
+	<script type="text/javascript">
+		$(function(){
+		    $('.myscroll').myScroll({
+		        speed: 60, //数值越大，速度越慢
+		        rowHeight: "0.54rem" //li的高度
+		    });
+		});
+	</script>
+</body>
+</html>

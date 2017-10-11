@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+
+	<script type="text/javascript">
+		/**
+		 * @param {string} s
+		 * @return {boolean}
+		 */
+		var isValid = function(s) {
+    		var bracketsStack = [];
+    		var map = {
+    			")": "(",
+    			"]": "[",
+    			"}": "{",
+    		};
+    		for (var i = 0; i < s.length; i++) {
+    			var len = bracketsStack.length;
+    			if (!map.hasOwnProperty(s[i])) {
+    				bracketsStack.push(s[i]);
+    			}else if (len===0 || bracketsStack[len-1]!=map[s[i]]) {
+    				return false;
+    			}else{
+    				bracketsStack.pop();
+    			}
+    			/*switch (s[i]){
+    				case "(":
+    				case "[":
+    				case "{":
+    					bracketsStack.push(s[i]);
+    					break;
+    				default:
+    					if (len===0 || bracketsStack[len-1]!=map[s[i]]) {
+    						return false;
+    					}else{
+    						bracketsStack.pop();
+    					}
+    					break;
+    				
+    			}*/
+    		}
+
+    		return bracketsStack.length === 0;
+		};
+
+		var s = "({{}})";
+		console.log(isValid(s));
+
+
+		/*
+			解题思路：栈规则
+				括号左右对应。当出现左边时，应保存。出现右边时，与对应的左边相比较（与最近一次存的相比）。若匹配则删除，不匹配则return false。
+		*/
+	</script>
+</body>
+</html>
