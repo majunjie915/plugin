@@ -8,8 +8,8 @@
 	<script type="text/javascript" src="seamlessScroll.js"></script>
 	<style type="text/css">
 		* { margin: 0; padding: 0; }
-		.myscroll{ height: 0.54rem; font-size: 0.28rem;overflow-y: hidden;margin: 0.4rem; }
-		.myscroll li{ height: 0.54rem; line-height: 0.54rem; }
+		.myscroll{ height: 0.54rem; font-size: 14px;overflow-y: hidden;margin: 0.4rem; }
+		.myscroll li{ height: 28px; line-height: 28px; }
 	</style>
 </head>
 <body>
@@ -35,7 +35,7 @@
 		$(function(){
 		    $('.myscroll').myScroll({
 		        speed: 60, //数值越大，速度越慢
-		        rowHeight: "0.54rem" //li的高度
+		        rowHeight: 28 //li的高度  设置为rem值时，在一轮滚动完了就不再循环，所以设置px值
 		    });
 		});
 	</script>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>从数组中删除特定值的元素</title>
+</head>
+<body>
+	<ol>
+		<li>第一项</li>
+		<li>第二项</li>
+		<li>第三项</li>
+	</ol>
+
+	<script type="text/javascript">
+		/**
+		 * @param {number[]} nums
+		 * @param {number} val
+		 * @return {number}
+		 */
+		var removeElement = function(nums, val) {
+			/*var count = 0;
+			var len = nums.length;
+		    for (var i = 0; i < len; i++) {
+		    	if (nums[i] === val) {
+		    		var tmp = nums[i];
+		    		nums[i] = nums[len-1-count];
+		    		nums[len-1-count] = tmp;
+		    		count ++;
+		    		i -- ;
+		    	}
+		    	if (i >= len-1-count) { 
+		    		break;
+		    	}
+		    }
+		    return len-count;*/
+		    var count = 0;
+		    for (var i = 0; i < nums.length; i++) {
+		    	if (nums[i] !== val) {
+		    		// nums[count] = nums[i];
+		    		count ++;
+		    	}
+		    }
+		    return count;
+		};
+		var nums = [2, 4, 5, 1, 2];
+		console.log(removeElement(nums, 2));
+
+		// 对象按照某一属性进行排序
+		var objArr = [
+			{
+				name: "czsr",
+				age: 20
+			},
+			{
+				name: "ba",
+				age: 16
+			},
+			{
+				name: "Badc",
+				age: 10
+			}
+		];
+
+		// 按数值排序
+		/*objArr.sort(function(a, b){
+			return a.age-b.age;
+		});*/
+
+		// 按字ASCII码排序
+		objArr.sort(function(a, b){
+			var value1 = a.name.toLowerCase();
+			var value2 = b.name.toLowerCase();
+			if (value1>value2) {
+				return 1;
+			}else{
+				return -1;
+			}
+		});
+		console.log(objArr);
+
+		// 闭包中循环绑定事件
+		/*var lis = document.getElementsByTagName("li");
+		for (var i = 0; i < lis.length; i++) {
+			lis[i].onclick = function(){
+				console.log(i);
+			}
+		}*/
+		var lis = document.getElementsByTagName("li");
+		for (var i = 0; i < lis.length; i++) {
+			lis[i].onclick = (function(i){
+				return (function(){
+					console.log(i);
+				});
+			}) (i);
+		}
+
+		// 最简单的闭包
+		/*for (var i = 0; i < 10; i++) {
+			function func(){
+				setTimeout(function(){
+					console.log(i)
+				} ,100)
+			}
+			func();
+		}*/
+
+		for (var i = 0; i < 10; i++) {
+			(function(i){
+				setTimeout(function(){
+					console.log(i);
+				} ,100)
+			})(i)
+		}
+
+		/*var obj = {  
+		    name: " jsCoder",  
+		    skill: ["css3","html5", "es6", "react", "angular"],  
+		    say: function () {        
+		        for(var i = 0, len = this.skill.length; i< len; i++){  
+		            setTimeout(function(){  
+		                console.log("No." + i + this.name);  // 匿名自执行函数中this指向window；延迟执行函数相当于异步执行，执行时循环已经完成
+		                console.log(this.skill[i]);  
+		                console.log('--------------------------');  
+		            },100);  
+		        }  
+		    }  
+		}  
+		obj.say();*/
+
+		var obj = {  
+		    name: " jsCoder",  
+		    skill: ["css3","html5", "es6", "react", "angular"],  
+		    say: function () {
+		    	var that = this;        
+		        for(var i = 0, len = this.skill.length; i< len; i++){  
+		            (function(){
+		            	var tmp = i;
+		            	setTimeout(function(){  
+			                console.log("No." + tmp + that.name);  
+			                console.log(that.skill[tmp]);  
+			                console.log('--------------------------');  
+			            },100);
+			        })();
+		        }  
+		    }  
+		}  
+		obj.say();
+		
+	</script>
+</body>
+</html>
