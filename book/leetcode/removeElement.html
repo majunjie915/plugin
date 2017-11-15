@@ -5,7 +5,7 @@
 </head>
 <body>
 	<ol>
-		<li>第一项</li>
+		<li style="appearance: button;cursor: pointer;-webkit-appearance:button;">第一项</li>
 		<li>第二项</li>
 		<li>第三项</li>
 	</ol>
@@ -79,7 +79,7 @@
 
 		// 闭包中循环绑定事件
 		/*var lis = document.getElementsByTagName("li");
-		for (var i = 0; i < lis.length; i++) {
+		for (var i = 0; i < lis.length; i++) { // for循环会在用户交互之前执行完，i在执行的过程中不断的被更新 i = 
 			lis[i].onclick = function(){
 				console.log(i);
 			}
