@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    // 1. Two Sum
+    // Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+    // You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+    /**
+     * @param {number[]} nums
+     * @param {number} target
+     * @return {number[]}
+     */
+    var twoSum = function(nums, target) {
+      for (let i = 0; i < nums.length; i++) {
+        for (let j = i + 1; j < nums.length; j++) {
+          if (nums[i] + nums[j] === target) {
+            return [i, j];
+          }
+        }
+      }
+    }; 
+
+    let arr = [1,5,3,8,2,4];
+    console.log(twoSum(arr, 4));
+
+    // 7. Reverse Integer
+    // Given a 32-bit signed integer, reverse digits of an integer.
+
+    /**
+     * @param {number} x
+     * @return {number}
+     */
+    var reverse = function(x) {
+      let isPositive = x >= 0 ? true : false;
+      let count = 0;
+      let reverseX = '';
+      x = '' + Math.abs(x);
+      for (let i = x.length-1; i >= 0; i--) {
+        if (Number(x[i]) === 0) {
+          count++;
+        }
+        reverseX += x[i];
+      }
+      if (count) {
+        reverseX.substring(0, count);
+      }
+      if (!isPositive) {
+        reverseX = -reverseX;
+      }
+      return (Number(reverseX) > Math.pow(2, 31) - 1 || Number(reverseX) < Math.pow(-2, 31)) ? 0 : Number(reverseX);
+    };
+
+    console.log(reverse(-120));
+
+    // 9. Palindrome Number
+    // Determine whether an integer is a palindrome. Do this without extra space.
+
+    /**
+     * @param {number} x
+     * @return {boolean}
+     */
+    var isPalindrome = function(x) {
+      if (x < 0 || (x % 10 === 0 && x !== 0)) {
+        return false;
+      }
+      
+      let reversedNum = 0;
+      while (x > reversedNum) {
+        reversedNum = reversedNum * 10 + x % 10;
+        x = parseInt(x / 10);
+      }
+
+      return (x === reversedNum || x === parseInt(reversedNum / 10));
+
+      // 转为字符串
+      // var strX = '' + x;
+      // var left = 0, right = strX.length-1, res;
+      // while (left <= right) {
+      //   if (strX[left]!=strX[right]) {
+      //    res = false;
+      //    break;
+      //   } else {
+      //    res = true;
+      //    left++;
+      //    right--;
+      //   }
+      // }
+      // return res;
+    };
+    console.log(isPalindrome(2147447412))
+
+    // 13. Roman to Integer
+    // Given a roman numeral, convert it to an integer.
+
+    // Input is guaranteed to be within the range from 1 to 3999.
+
+    /**
+     * @param {string} s
+     * @return {number}
+     */
+    var romanToInt = function(s) {
+      let digits = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000};
+      let maxDigit = 0;
+      let sum = 0;
+      for (let i = s.length - 1; i >= 0; i--) {
+        if (digits[s[i]] >= maxDigit) {
+          sum += digits[s[i]];
+        } else {
+          sum -= digits[s[i]];
+        }
+        maxDigit = digits[s[i]];
+      }
+      console.log(sum);
+      return sum;
+    };
+    romanToInt('DCXXI');
+
+    // 14. Longest Common Prefix
+    // Write a function to find the longest common prefix string amongst an array of strings.
+
+    /**
+     * @param {string[]} strs
+     * @return {string}
+     */
+    var longestCommonPrefix = function(strs) {
+      // 数组为空时直接返回
+      if (strs.length === 0) return '';
+      let res = '';
+      let shortestStr = strs[0];
+       
+      // 寻找最短的元素是必须的
+      for (var i = 1; i < strs.length; i++) {
+        shortestStr = shortestStr.length<strs[i].length ? shortestStr : strs[i]
+      }
+      // 必须以最短元素为基准（外层循环）来循环遍历
+      for (let i = 0; i < shortestStr.length; i++) {
+        for (let j = 0; j < strs.length; j++) {
+          if (strs[j][i] !== shortestStr[i]) {
+            return res;
+          }
+        }
+        res += shortestStr[i];
+      }
+      console.log(res);
+      return res;
+    };
+
+    longestCommonPrefix(['a', 'a']);
+
+    // 20. Valid Parentheses
+    // Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+    // The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+
+    /**
+     * @param {string} s
+     * @return {boolean}
+     */
+    var isValid = function(s) {
+      let ruleObj = {
+        ')': '(',
+        ']': '[',
+        '}': '{'
+      };
+      let stackArr = [];
+      for (let i = 0; i < s.length; i++) {
+        if (!ruleObj.hasOwnProperty(s[i])) {
+          stackArr.push(s[i]);
+        } else if (ruleObj[s[i]] === stackArr[stackArr.length-1]) {
+          stackArr.pop();
+        } else {
+          return false;
+        }
+      }
+      return stackArr.length === 0;
+    };
+
+    console.log(isValid(']}])'))
+
+    // 26. Remove Duplicates from Sorted Array
+    // Given a sorted array, remove the duplicates in-place such that each element appear only once and return the new length.
+
+    // Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+
+    // Given nums = [1,1,2],
+    // Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively.
+    // It doesn't matter what you leave beyond the new length.
+
+    /**
+     * @param {number[]} nums
+     * @return {number}
+     */
+    var removeDuplicates = function(nums) {
+      let point = 1; // 记录长度
+      for (let i = 1; i < nums.length; i++) {
+        if (nums[i] !== nums[point - 1]) {
+          nums[point] = nums[i];
+          point++;
+        }
+      }
+      return point;
+    };
+    console.log(removeDuplicates([1, 1, 2]));
+
+    // 27. Remove Element
+    // Given an array and a value, remove all instances of that value in-place and return the new length.
+
+    // Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+
+    // The order of elements can be changed. It doesn't matter what you leave beyond the new length.
+
+    /**
+     * @param {number[]} nums
+     * @param {number} val
+     * @return {number}
+     */
+    var removeElement = function(nums, val) {
+      let point = 0;
+      for (let i = 0; i < nums.length; i++) {
+        if (nums[i] !== val) {
+          nums[point] = nums[i];
+          point++;
+        }
+      }
+      return point;
+    };
+
+    console.log(removeElement([3, 2, 2, 3], 2));
+
+    // 28. Implement strStr()
+    // Implement strStr().
+
+    // Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+    /**
+     * @param {string} haystack
+     * @param {string} needle
+     * @return {number}
+     */
+    var strStr = function(haystack, needle) {
+      return haystack.indexOf(needle); 
+    };
+
+    console.log(strStr('abcdefg', 'kfg'));
+
+    // 35. Search Insert Position
+    // Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+
+    /**
+     * @param {number[]} nums
+     * @param {number} target
+     * @return {number}
+     */
+    var searchInsert = function(nums, target) {
+      if (nums.indexOf(target) > -1) {
+        return nums.indexOf(target);
+      }
+      for (let i = 0; i < nums.length; i++) {
+        if (nums[i] > target) {
+          return i;
+        } else if (nums[nums.length - 1] < target) {
+          return nums.length;
+        }
+      }
+    };
+
+    console.log(searchInsert([1, 3, 5, 8], 2));
+
+    // 38. Count and Say
+    
+    /**
+     * @param {number} n
+     * @return {string}
+     */
+    var countAndSay = function(n) {
+      let s = '1';
+      while (--n) {
+        s = countNext(s);
+      }
+      return s;
+    };
+
+    var countNext = function (str) {
+      let count = 0;
+      let res = '';
+      for (let i = 0; i < str.length; i++) {
+        count = 1;
+        while (str[i] === str[i + 1]) {
+          count++;
+          i++;
+        }
+        res = res + count + str[i];
+      }
+      return res;
+    }
+
+    console.log(countNext('1211'))
+
+    // 53. Maximum Subarray
+    // Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
+
+    /**
+     * @param {number[]} nums
+     * @return {number}
+     */
+    var maxSubArray = function(nums) {
+      if (nums.length === 0) {
+        return 0;
+      }
+      let sum = nums[0];
+      let res = nums[0];
+      for (let i = 1; i < nums.length; i++) {
+        if (sum < 0) {
+          sum = nums[i];
+        } else {
+          sum += nums[i];
+        }
+        res = Math.max(res, sum);
+      }
+      return res;
+    };
+
+    console.log(maxSubArray([1]));
+
+    // 58. Length of Last Word
+    // Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.
+
+    // If the last word does not exist, return 0.
+
+    /**
+     * @param {string} s
+     * @return {number}
+     */
+    var lengthOfLastWord = function(s) {
+      s = s.trim();
+      let arrS = s.split(' ');
+      if (arrS[arrS.length - 1]) {
+        return arrS[arrS.length - 1].length;
+      } else {
+        return 0;
+      }
+    };
+
+    console.log(lengthOfLastWord('hello world '));
+
+    // 66. Plus One
+    // Given a non-negative integer represented as a non-empty array of digits, plus one to the integer.
+
+    // You may assume the integer do not contain any leading zero, except the number 0 itself.
+
+    // The digits are stored such that the most significant digit is at the head of the list.
+
+    /**
+     * @param {number[]} digits
+     * @return {number[]}
+     */
+    var plusOne = function(digits) {
+      let count = 1;
+      for (let i = digits.length - 1; i >= 0 ; i--) {
+        if (digits[i] === 9) {
+          digits[i] = 0;
+        } else { // digits[i] 不等于9时，加1后不会有进位，所以循环可结束
+          digits[i] += count;
+          break;
+        }
+      }
+      if (digits[0] === 0) {
+        digits.unshift(count);
+      }
+      return digits;
+    };
+
+    console.log(plusOne([9, 9, 8, 4]));
+  </script>
+</body>
+</html>
