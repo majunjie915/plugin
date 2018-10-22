@@ -379,6 +379,48 @@
     };
 
     console.log(plusOne([9, 9, 8, 4]));
+
+    // 67. Add Binary
+    // Given two binary strings, return their sum (also a binary string).
+
+    // For example,
+    // a = "11"
+    // b = "1"
+    // Return "100".
+
+    /**
+   * @param {string} a
+   * @param {string} b
+   * @return {string}
+   */
+  var addBinary = function(a, b) {
+    var carry = 0;
+    var i = a.length - 1, j = b.length - 1;
+    var result = '';
+    while(i >= 0 || j >= 0){
+      var A = i < 0 ? '0' : a[i];
+      var B = j < 0 ? '0' : b[j];
+      var digitRes = addDigit(A, B, carry);
+      result = digitRes[1] + result;
+      carry = digitRes[0];
+      i--;
+      j--;
+    }
+    if (carry == 1) {
+      result = '1' + result;
+    }
+    return result;
+  };
+  // 两个数字相加
+  var addDigit = function(a, b, carry){
+    a = parseInt(a);
+    b = parseInt(b);
+    var res = a + b + carry;
+    carry = parseInt(res / 2);
+    res = res % 2;
+    return [carry, '' + res];
+  }
+  console.log(addBinary('0', '0')); // 111010
   </script>
 </body>
 </html>
